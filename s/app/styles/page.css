@@ -1,0 +1,12 @@
+
+@layer page {
+	body {
+		color: var(--color);
+		background: var(--background);
+	}
+
+	totem-editor {
+		display: block;
+	}
+}
+

@@ -1,0 +1,11 @@
+
+@layer vars, basics, page;
+
+@layer vars {
+	:root {
+		--link: cyan;
+		--color: #fff8;
+		--background: #211;
+	}
+}
+
