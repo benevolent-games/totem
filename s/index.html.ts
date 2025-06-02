@@ -4,7 +4,7 @@ import {template, html, easypage, git_commit_hash, read_file, unsanitized, rende
 
 const version = (await read_json("package.json")).version
 const domain = "totem.benevolent.games"
-const favicon = "/assets/b.svg"
+const favicon = "/assets/totem.png"
 const description = "3d prop editor"
 
 export default template(async basic => {
@@ -34,8 +34,8 @@ export default template(async basic => {
 			})}
 
 			${headScripts({
-				devModulePath: await path.version.root("main.bundle.js"),
-				prodModulePath: await path.version.root("main.bundle.min.js"),
+				devModulePath: await path.version.root("app/main.bundle.js"),
+				prodModulePath: await path.version.root("app/main.bundle.min.js"),
 				importmapContent: await read_file("x/importmap.json"),
 			})}
 		`,
