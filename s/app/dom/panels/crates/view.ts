@@ -25,9 +25,26 @@ export const getCratesPanel = (core: Core) => shadowView(use => () => {
 					<div data-id="${crate.id}">${Thumbprint.sigil.fromHex(crate.id)}</div>
 				`)}
 			</div>
-			<button theme=button @click="${addCrate}">add</button>
-			<button theme=button ?disabled="${!core.history.undoable}" @click="${() => core.history.undo()}">undo</button>
-			<button theme=button ?disabled="${!core.history.redoable}" @click="${() => core.history.redo()}">redo</button>
+
+			<button
+				theme=button
+				@click="${addCrate}">
+					add
+			</button>
+
+			<button
+				theme=button
+				?disabled="${!core.history.undoable}"
+				@click="${() => core.history.undo()}">
+					undo
+			</button>
+
+			<button
+				theme=button
+				?disabled="${!core.history.redoable}"
+				@click="${() => core.history.redo()}">
+					redo
+			</button>
 		</section>
 	`
 })
