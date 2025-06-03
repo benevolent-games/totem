@@ -1,13 +1,14 @@
 
 import {register} from "@benev/slate"
+import {Logic} from "./logic/logic.js"
 import {makeFrontstage} from "./rendering/frontstage.js"
-import {TotemEditor} from "./dom/elements/totem-editor/element.js"
 
+const logic = new Logic()
 const frontstage = await makeFrontstage()
 
 register({
 	...frontstage.getElements(),
-	TotemEditor,
+	...logic.elements,
 })
 
 console.log("🗿")
