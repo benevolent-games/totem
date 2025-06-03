@@ -2,7 +2,7 @@
 import {deep} from "@e280/stz"
 import {Domain} from "./domain.js"
 
-export type Snapshot = [label: string, datas: any[]]
+export type Snapshot = [label: string, states: any[]]
 
 export class History {
 	#past: Snapshot[] = []
@@ -62,15 +62,15 @@ export class History {
 	}
 
 	#snapshot(label: string): Snapshot {
-		const datas = this.domains
-			.map(d => deep.clone(Domain.getDataSignal(d).value))
-		return [label, datas]
+		const states = this.domains
+			.map(d => deep.clone(Domain.getStateSignal(d).value))
+		return [label, states]
 	}
 
-	#restore([,datas]: Snapshot) {
+	#restore([,states]: Snapshot) {
 		for (const [index, domain] of this.domains.entries()) {
-			const data = datas.at(index)!
-			Domain.getDataSignal(domain).value = deep.clone(data)
+			const state = states.at(index)!
+			Domain.getStateSignal(domain).value = deep.clone(state)
 		}
 	}
 

@@ -12,8 +12,8 @@ export const getCratesPanel = (core: Core) => shadowView(use => () => {
 	const {crates} = core.domains
 
 	function addCrate() {
-		crates.action("add crate", data => {
-			data.array.push({id: Hex.random()})
+		crates.action("add crate", state => {
+			state.array.push({id: Hex.random()})
 		})
 	}
 
@@ -21,7 +21,7 @@ export const getCratesPanel = (core: Core) => shadowView(use => () => {
 		<section>
 			<h2>Crates</h2>
 			<div class=crates>
-				${crates.data.array.map(crate => html`
+				${crates.state.array.map(crate => html`
 					<div data-id="${crate.id}">${Thumbprint.sigil.fromHex(crate.id)}</div>
 				`)}
 			</div>

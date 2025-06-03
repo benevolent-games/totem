@@ -2,25 +2,25 @@
 import {deep, sub} from "@e280/stz"
 import {computed, signal, Signal} from "@benev/slate"
 
-export class Domain<Data = any> {
-	static getDataSignal = (domain: Domain) => domain.#data
+export class Domain<State = any> {
+	static getStateSignal = (domain: Domain) => domain.#state
 
-	#data: Signal<Data>
-	#immutable: Signal<Data>
+	#state: Signal<State>
+	#immutable: Signal<State>
 	onAction = sub<[label: string]>()
 
-	constructor(data: Data) {
-		this.#data = signal(data)
-		this.#immutable = computed(() => deep.freeze(deep.clone(this.#data.value)))
+	constructor(state: State) {
+		this.#state = signal(state)
+		this.#immutable = computed(() => deep.freeze(deep.clone(this.#state.value)))
 	}
 
-	get data() {
+	get state() {
 		return this.#immutable.value
 	}
 
-	action(label: string, fn: (data: Data) => void) {
-		fn(this.#data.value)
-		this.#data.publish()
+	action(label: string, fn: (state: State) => void) {
+		fn(this.#state.value)
+		this.#state.publish()
 		this.onAction.pub(label)
 	}
 }
