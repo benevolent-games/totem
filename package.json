@@ -36,7 +36,7 @@
 		"@e280/stz": "^0.0.0-22"
 	},
 	"devDependencies": {
-		"@benev/turtle": "^0.6.12",
+		"@benev/turtle": "^0.6.13",
 		"@e280/science": "^0.0.5",
 		"esbuild": "^0.25.5",
 		"http-server": "^14.1.1",
