@@ -40,14 +40,18 @@ export default template(async basic => {
 			})}
 		`,
 		body: html`
-			<section>
-				<header class=title>
-					<h1>@benev/totem</h1>
-					<p>${version}</p>
-					<p>see it on <a href="https://github.com/benevolent-games/totem">github</a></p>
+			<totem-editor>
+				<header>
+					<h1>
+						<img alt="" src="/assets/totem.png"/>
+						<span>
+							<span>Totem</span>
+							<small>${version}</small>
+						</span>
+					</h1>
+					<a href="https://github.com/benevolent-games/totem">github</a>
 				</header>
-				<totem-editor></totem-editor>
-			</section>
+			</totem-editor>
 		`,
 	})
 })

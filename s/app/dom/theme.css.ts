@@ -1,6 +1,6 @@
 
 import {css} from "@benev/slate"
-export default css`
+export default css`@layer theme, view, special; @layer theme {
 
 * {
 	padding: 0;
@@ -31,4 +31,32 @@ a {
 	}
 }
 
-`
+:is(
+	[theme~=strip],
+	[theme~=button]
+	) {
+	all: unset;
+}
+
+:is(
+	[theme~=glassy],
+	[theme~=button]
+	) {
+	background: linear-gradient(to bottom, #fff2, #fff1);
+	border-radius: 1rem;
+	border: 0.1rem solid #fff4;
+	box-shadow: 0.2rem 0.4rem 1rem #0005;
+}
+
+[theme~=button] {
+	cursor: pointer;
+	padding: 0.5em;
+
+	&:is(:hover, :focus-visible) {
+		box-shadow: 0 0 2em #fff4;
+		background: #fff4;
+	}
+}
+
+}`
+
