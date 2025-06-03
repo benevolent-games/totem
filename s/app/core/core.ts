@@ -12,10 +12,14 @@ export class Core {
 			array: [] as {id: string, glb?: string}[],
 			glbs: [] as {hash: string, size: number}[],
 		}),
+		catalog: new Domain({
+			props: [] as [string, any][],
+		}),
 	}
 
 	history = new History(64, [
 		this.domains.crates,
+		this.domains.catalog,
 	])
 
 	readonly elements = {
