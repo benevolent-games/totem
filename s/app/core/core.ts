@@ -1,10 +1,23 @@
 
 import {html} from "@benev/slate"
+import {Domain} from "./state/domain.js"
 import {Tabber} from "./parts/tabbing.js"
+import {History} from "./state/history.js"
 import {getCratesPanel} from "../dom/panels/crates/view.js"
 import {getTotemEditor} from "../dom/elements/totem-editor/element.js"
 
-export class Logic {
+export class Core {
+	domains = {
+		crates: new Domain({
+			array: [] as {id: string, glb?: string}[],
+			glbs: [] as {hash: string, size: number}[],
+		}),
+	}
+
+	history = new History(64, [
+		this.domains.crates,
+	])
+
 	readonly elements = {
 		TotemEditor: getTotemEditor(this),
 	}

@@ -1,6 +1,6 @@
 
 import {css} from "@benev/slate"
-export default css`
+export default css`@layer view {
 
 marduk-theater {
 	display: contents;
@@ -80,5 +80,5 @@ nav {
 	}
 }
 
-`
+}`
 

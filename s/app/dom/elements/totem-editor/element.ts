@@ -2,12 +2,12 @@
 import {html, shadowComponent} from "@benev/slate"
 import styleCss from "./style.css.js"
 import themeCss from "../../theme.css.js"
-import {Logic} from "../../../logic/logic.js"
+import {Core} from "../../../core/core.js"
 
-export const getTotemEditor = (logic: Logic) => shadowComponent(use => {
+export const getTotemEditor = (core: Core) => shadowComponent(use => {
 	use.styles(themeCss, styleCss)
 
-	const {panels, activeLabel, activePanel} = logic.tabber
+	const {panels, activeLabel, activePanel} = core.tabber
 
 	function click(label: keyof typeof panels) {
 		return () => {

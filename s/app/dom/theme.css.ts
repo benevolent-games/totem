@@ -56,6 +56,11 @@ a {
 		box-shadow: 0 0 2em #fff4;
 		background: #fff4;
 	}
+
+	&[disabled] {
+		opacity: 0.3;
+		text-decoration: line-through;
+	}
 }
 
 }`

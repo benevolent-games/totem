@@ -1,14 +1,14 @@
 
 import {register} from "@benev/slate"
-import {Logic} from "./logic/logic.js"
+import {Core} from "./core/core.js"
 import {makeFrontstage} from "./rendering/frontstage.js"
 
-const logic = new Logic()
+const core = new Core()
 const frontstage = await makeFrontstage()
 
 register({
 	...frontstage.getElements(),
-	...logic.elements,
+	...core.elements,
 })
 
 console.log("🗿")
