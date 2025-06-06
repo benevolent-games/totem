@@ -1,7 +1,7 @@
 {
 	"private": true,
 	"name": "@benev/totem",
-	"version": "0.0.0-1",
+	"version": "0.0.0-2",
 	"description": "3d prop editor",
 	"license": "MIT",
 	"author": "Chase Moskal <chasemoskal@gmail.com>",
