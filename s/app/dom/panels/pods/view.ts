@@ -1,34 +1,32 @@
 
-import {Hex, Thumbprint} from "@e280/stz"
+import {Thumbprint} from "@e280/stz"
 import {html, shadowView} from "@benev/slate"
 
 import styleCss from "./style.css.js"
 import themeCss from "../../theme.css.js"
 import {Core} from "../../../core/core.js"
 
-export const getCratesPanel = (core: Core) => shadowView(use => () => {
+export const getPodsPanel = (core: Core) => shadowView(use => () => {
 	use.styles(themeCss, styleCss)
 
-	const {crates} = core.domains
+	const {depot} = core
 
-	function addCrate() {
-		crates.action("add crate", state => {
-			state.array.push({id: Hex.random()})
-		})
+	async function addPod() {
+		await depot.createPod(null)
 	}
 
 	return html`
 		<section>
-			<h2>Crates</h2>
-			<div class=crates>
-				${crates.state.array.map(crate => html`
-					<div data-id="${crate.id}">${Thumbprint.sigil.fromHex(crate.id)}</div>
+			<h2>Pods</h2>
+			<div class=pods>
+				${depot.domain.state.pods.map(pod => html`
+					<div data-id="${pod.id}">${Thumbprint.sigil.fromHex(pod.id)}</div>
 				`)}
 			</div>
 
 			<button
 				theme=button
-				@click="${addCrate}">
+				@click="${addPod}">
 					add
 			</button>
 

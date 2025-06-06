@@ -24,7 +24,9 @@
 		"_ln": "run-s _ln-s _ln-assets",
 		"_ln-s": "ln -s \"$(realpath s)\" x/s",
 		"_ln-assets": "ln -s \"$(realpath assets)\" x/assets",
-		"devlink-marduk": "rm -rf node_modules/@benev/marduk && ln -s \"$(realpath ../marduk)\" node_modules/@benev/marduk",
+		"_dl-marduk": "rm -rf node_modules/@benev/marduk && ln -s \"$(realpath ../marduk)\" node_modules/@benev/marduk",
+		"_dl-quay": "rm -rf node_modules/@e280/quay && ln -s \"$(realpath ../../@e280/quay)\" node_modules/@e280/quay",
+		"devlinks": "run-s _dl-marduk _dl-quay",
 		"test": "node x/tests.test.js",
 		"test-watch": "node --watch x/tests.test.js",
 		"test-debug": "node inspect x/tests.test.js",
@@ -35,7 +37,7 @@
 		"@benev/math": "^0.0.0-2",
 		"@benev/slate": "^0.3.5",
 		"@e280/kv": "^0.0.0-7",
-		"@e280/quay": "^0.0.0-1",
+		"@e280/quay": "^0.0.0-2",
 		"@e280/stz": "^0.0.0-22"
 	},
 	"devDependencies": {

@@ -1,42 +1,45 @@
 
+import {Kv} from "@e280/kv"
 import {html} from "@benev/slate"
-import {Domain} from "./state/domain.js"
+import {Cellar} from "@e280/quay"
+
+import {Depot} from "./parts/depot.js"
 import {Tabber} from "./parts/tabbing.js"
-import {History} from "./state/history.js"
-import {getCratesPanel} from "../dom/panels/crates/view.js"
+import {History} from "./framework/history.js"
+import {getPodsPanel as getPodsPanel} from "../dom/panels/pods/view.js"
 import {getTotemEditor} from "../dom/elements/totem-editor/element.js"
 
 export class Core {
-	domains = {
-		crates: new Domain({
-			array: [] as {id: string, glb?: string}[],
-			glbs: [] as {hash: string, size: number}[],
-		}),
-		catalog: new Domain({
-			props: [] as [string, any][],
-		}),
+	depot: Depot
+	history: History
+
+	constructor(
+			public kv: Kv,
+			public cellar: Cellar,
+		) {
+
+		this.depot = new Depot(cellar)
+
+		this.history = new History(64, [
+			this.depot.domain,
+		])
 	}
 
-	history = new History(64, [
-		this.domains.crates,
-		this.domains.catalog,
-	])
+	tabber = new Tabber("view", {
+		view: {icon: "🗿", render: () => null},
+		pods: {icon: "🫛", render: () => this.panels.Pods([])},
+		art: {icon: "🎨", render: () => html`art`},
+		props: {icon: "🗃️", render: () => html`props`},
+		edit: {icon: "🛠️", render: () => html`edit`},
+		pack: {icon: "🎒", render: () => html`pack`},
+	})
 
 	readonly elements = {
 		TotemEditor: getTotemEditor(this),
 	}
 
 	readonly panels = {
-		Crates: getCratesPanel(this),
+		Pods: getPodsPanel(this),
 	}
-
-	tabber = new Tabber("view", {
-		view: {icon: "🗿", render: () => null},
-		crates: {icon: "📦", render: () => this.panels.Crates([])},
-		art: {icon: "🎨", render: () => html`art`},
-		props: {icon: "🗃️", render: () => html`props`},
-		edit: {icon: "🛠️", render: () => html`edit`},
-		pack: {icon: "🎒", render: () => html`pack`},
-	})
 }
 
