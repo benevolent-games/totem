@@ -2,16 +2,19 @@
 import {Kv} from "@e280/kv"
 import {html} from "@benev/slate"
 import {Cellar} from "@e280/quay"
+import {debounce} from "@e280/stz"
 
 import {Depot} from "./parts/depot.js"
 import {Tabber} from "./parts/tabbing.js"
 import {History} from "./framework/history.js"
-import {getPodsPanel as getPodsPanel} from "../dom/panels/pods/view.js"
 import {getTotemEditor} from "../dom/elements/totem-editor/element.js"
+import {getPodsPanel as getPodsPanel} from "../dom/panels/pods/view.js"
 
 export class Core {
 	depot: Depot
 	history: History
+
+	loaded: Promise<void>
 
 	constructor(
 			public kv: Kv,
@@ -23,6 +26,9 @@ export class Core {
 		this.history = new History(64, [
 			this.depot.domain,
 		])
+
+		this.loaded = this.history.establishPersistence(kv.store("history"))
+			.then(() => undefined)
 	}
 
 	tabber = new Tabber("view", {

@@ -8,12 +8,14 @@ import {makeFrontstage} from "./rendering/frontstage.js"
 
 const core = new Core(
 	new Kv(
-		// new StorageDriver()
+		new StorageDriver()
 	),
 	new Cellar(
 		// new OpfsForklift(await navigator.storage.getDirectory())
 	),
 )
+
+await core.loaded
 
 const frontstage = await makeFrontstage()
 

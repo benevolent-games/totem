@@ -1,21 +1,74 @@
 
-import {deep} from "@e280/stz"
+import {Store} from "@e280/kv"
+import {debounce, deep, sub} from "@e280/stz"
+
 import {Domain} from "./domain.js"
+import {setupOnStorageEvent} from "../../dom/utils/storage-event-sub.js"
 
 export type Snapshot = [label: string, states: any[]]
 
+export type HistoryPickle = {
+	version: number
+	past: Snapshot[]
+	future: Snapshot[]
+}
+
 export class History {
+	static version = 1
+	onChange = sub()
+
 	#past: Snapshot[] = []
 	#future: Snapshot[] = []
 	#actions = true
 
 	constructor(public snapshotLimit: number, public domains: Domain[]) {
 		this.proceed("initialize")
+
+		// listen to changes from each domain, reacting with historical procession
 		for (const domain of domains)
 			domain.onAction((label: string) => {
 				if (this.#actions)
 					this.proceed(label)
 			})
+	}
+
+	async establishPersistence(store: Store<HistoryPickle>) {
+		const onStorageEvent = setupOnStorageEvent()
+
+		const load = async() => {
+			const pickle = await store.get()
+			if (!pickle) return
+			this.unpickle(pickle)
+		}
+
+		await load()
+
+		const stopListeningForLoading = onStorageEvent.sub(load)
+		const stopListeningForSaving = this.onChange(debounce(500, async() => {
+			const pickle = this.pickle()
+			await store.set(pickle)
+		}))
+
+		return () => {
+			stopListeningForLoading()
+			stopListeningForSaving()
+		}
+	}
+
+	pickle(): HistoryPickle {
+		return deep.clone({
+			version: History.version,
+			past: this.#past,
+			future: this.#future,
+		})
+	}
+
+	unpickle(pickle: HistoryPickle) {
+		if (pickle.version !== History.version)
+			return
+		this.#past = deep.clone(pickle.past)
+		this.#future = deep.clone(pickle.future)
+		this.#restoreCurrent()
 	}
 
 	batch(label: string, fn: () => void) {
@@ -29,6 +82,7 @@ export class History {
 		this.#future = []
 		this.#past.push(this.#snapshot(label))
 		this.#enforceLimit()
+		this.onChange.pub()
 	}
 
 	get undoable() { return this.#past.length > 1 }
@@ -41,7 +95,7 @@ export class History {
 		this.#future.push(this.#past.pop()!)
 
 		// restoring the 'previous' snapshot
-		this.#restore(this.#past.at(-1)!)
+		this.#restoreCurrent()
 	}
 
 	redo() {
@@ -53,7 +107,7 @@ export class History {
 		this.#past.push(snapshot)
 
 		// restoring that snapshot
-		this.#restore(snapshot)
+		this.#restoreCurrent()
 	}
 
 	clear() {
@@ -67,11 +121,13 @@ export class History {
 		return [label, states]
 	}
 
-	#restore([,states]: Snapshot) {
+	#restoreCurrent() {
+		const [,states] = this.#past.at(-1)!
 		for (const [index, domain] of this.domains.entries()) {
 			const state = states.at(index)!
 			Domain.getStateSignal(domain).value = deep.clone(state)
 		}
+		this.onChange.pub()
 	}
 
 	#enforceLimit() {
