@@ -7,14 +7,12 @@ import {setupOnStorageEvent} from "../../dom/utils/storage-event-sub.js"
 
 export type Snapshot = [label: string, states: any[]]
 
-export type HistoryPickle = {
-	version: number
+export type ChroniclePickle = {
 	past: Snapshot[]
 	future: Snapshot[]
 }
 
-export class History {
-	static version = 1
+export class Chronicle {
 	onChange = sub()
 
 	#past: Snapshot[] = []
@@ -32,40 +30,14 @@ export class History {
 			})
 	}
 
-	async establishPersistence(store: Store<HistoryPickle>) {
-		const onStorageEvent = setupOnStorageEvent()
-
-		const load = async() => {
-			const pickle = await store.get()
-			if (!pickle) return
-			this.unpickle(pickle)
-		}
-
-		await load()
-
-		const stopListeningForLoading = onStorageEvent.sub(load)
-		const stopListeningForSaving = this.onChange(debounce(500, async() => {
-			const pickle = this.pickle()
-			await store.set(pickle)
-		}))
-
-		return () => {
-			stopListeningForLoading()
-			stopListeningForSaving()
-		}
-	}
-
-	pickle(): HistoryPickle {
+	pickle(): ChroniclePickle {
 		return deep.clone({
-			version: History.version,
 			past: this.#past,
 			future: this.#future,
 		})
 	}
 
-	unpickle(pickle: HistoryPickle) {
-		if (pickle.version !== History.version)
-			return
+	unpickle(pickle: ChroniclePickle) {
 		this.#past = deep.clone(pickle.past)
 		this.#future = deep.clone(pickle.future)
 		this.#restoreCurrent()

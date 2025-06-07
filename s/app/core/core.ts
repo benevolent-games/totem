@@ -2,33 +2,31 @@
 import {Kv} from "@e280/kv"
 import {html} from "@benev/slate"
 import {Cellar} from "@e280/quay"
-import {debounce} from "@e280/stz"
 
-import {Depot} from "./parts/depot.js"
 import {Tabber} from "./parts/tabbing.js"
-import {History} from "./framework/history.js"
+import {ProjectManager} from "./parts/project-manager.js"
+import {setupOnStorageEvent} from "../dom/utils/storage-event-sub.js"
 import {getTotemEditor} from "../dom/elements/totem-editor/element.js"
 import {getPodsPanel as getPodsPanel} from "../dom/panels/pods/view.js"
 
 export class Core {
-	depot: Depot
-	history: History
-
-	loaded: Promise<void>
-
 	constructor(
 			public kv: Kv,
 			public cellar: Cellar,
+			public projectManager: ProjectManager,
 		) {
+		const onStorageEvent = setupOnStorageEvent()
+		onStorageEvent(async() => {
+			await projectManager.reload()
+		})
+	}
 
-		this.depot = new Depot(cellar)
-
-		this.history = new History(64, [
-			this.depot.domain,
-		])
-
-		this.loaded = this.history.establishPersistence(kv.store("history"))
-			.then(() => undefined)
+	static async setup(
+			kv: Kv,
+			cellar: Cellar,
+		) {
+		const projectManager = await ProjectManager.setup({kv, cellar})
+		return new this(kv, cellar, projectManager)
 	}
 
 	tabber = new Tabber("view", {
@@ -39,6 +37,10 @@ export class Core {
 		edit: {icon: "🛠️", render: () => html`edit`},
 		pack: {icon: "🎒", render: () => html`pack`},
 	})
+
+	get project() {
+		return this.projectManager.project.value
+	}
 
 	readonly elements = {
 		TotemEditor: getTotemEditor(this),

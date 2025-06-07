@@ -8,8 +8,7 @@ import {Core} from "../../../core/core.js"
 
 export const getPodsPanel = (core: Core) => shadowView(use => () => {
 	use.styles(themeCss, styleCss)
-
-	const {depot} = core
+	const {depot, chronicle} = core.project
 
 	async function addPod() {
 		await depot.createPod(null)
@@ -32,15 +31,15 @@ export const getPodsPanel = (core: Core) => shadowView(use => () => {
 
 			<button
 				theme=button
-				?disabled="${!core.history.undoable}"
-				@click="${() => core.history.undo()}">
+				?disabled="${!chronicle.undoable}"
+				@click="${() => chronicle.undo()}">
 					undo
 			</button>
 
 			<button
 				theme=button
-				?disabled="${!core.history.redoable}"
-				@click="${() => core.history.redo()}">
+				?disabled="${!chronicle.redoable}"
+				@click="${() => chronicle.redo()}">
 					redo
 			</button>
 		</section>

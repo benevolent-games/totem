@@ -1,12 +1,12 @@
 
+import {Cellar} from "@e280/quay"
 import {register} from "@benev/slate"
 import {Kv, StorageDriver} from "@e280/kv"
-import {Cellar, OpfsForklift} from "@e280/quay"
 
 import {Core} from "./core/core.js"
 import {makeFrontstage} from "./rendering/frontstage.js"
 
-const core = new Core(
+const core = await Core.setup(
 	new Kv(
 		new StorageDriver()
 	),
@@ -14,8 +14,6 @@ const core = new Core(
 		// new OpfsForklift(await navigator.storage.getDirectory())
 	),
 )
-
-await core.loaded
 
 const frontstage = await makeFrontstage()
 
