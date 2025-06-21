@@ -30,7 +30,7 @@ export class ProjectManager {
 
 	static async load({kv, cellar}: ProjectManagerPersistence) {
 		const projects = new MapG<string, Project>()
-		const projectsKv = kv.namespace<ProjectPickle>("projects")
+		const projectsKv = kv.scope<ProjectPickle>("projects")
 
 		// load all projects
 		for await (const [id, pickle] of projectsKv.entries()) {
