@@ -1,13 +1,12 @@
 
-import {Kv} from "@e280/kv"
+import {Kv, StorageDriver} from "@e280/kv"
 import {html} from "@benev/slate"
 import {Cellar} from "@e280/quay"
 
 import {Tabber} from "./parts/tabbing.js"
+import {getPodsPanel} from "../dom/panels/pods/view.js"
 import {ProjectManager} from "./parts/project-manager.js"
-import {setupOnStorageEvent} from "../dom/utils/storage-event-sub.js"
 import {getTotemEditor} from "../dom/elements/totem-editor/element.js"
-import {getPodsPanel as getPodsPanel} from "../dom/panels/pods/view.js"
 
 export class Core {
 	constructor(
@@ -15,10 +14,7 @@ export class Core {
 			public cellar: Cellar,
 			public projectManager: ProjectManager,
 		) {
-		const onStorageEvent = setupOnStorageEvent()
-		onStorageEvent(async() => {
-			await projectManager.reload()
-		})
+		StorageDriver.onStorageEvent(() => projectManager.reload())
 	}
 
 	static async setup(

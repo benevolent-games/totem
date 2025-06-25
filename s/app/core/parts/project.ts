@@ -1,11 +1,10 @@
 
-import {Kv, Store} from "@e280/kv"
 import {Cellar} from "@e280/quay"
+import {Kv, StorageDriver, Store} from "@e280/kv"
 import {debounce, Hex, Thumbprint} from "@e280/stz"
 
 import {Depot} from "./depot.js"
 import {Chronicle, ChroniclePickle} from "../framework/chronicle.js"
-import {setupOnStorageEvent} from "../../dom/utils/storage-event-sub.js"
 
 export class Project {
 	static version = 1
@@ -41,9 +40,7 @@ export class Project {
 		const project = new this(store, cellar, id, label)
 		await project.save()
 
-		const onStorageEvent = setupOnStorageEvent()
-		onStorageEvent(async() => project.load())
-
+		StorageDriver.onStorageEvent(async() => project.load())
 		return project
 	}
 
