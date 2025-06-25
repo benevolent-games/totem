@@ -1,9 +1,7 @@
 
 import {StorageDriver, Store} from "@e280/kv"
 import {Strata, Versioned} from "@e280/strata"
-import {AppState, initAppState} from "./app-state.js"
-
-export const appStateVersion = 0
+import {AppState, appStateVersion, initAppState} from "./state.js"
 
 export async function makeStrata(store: Store<Versioned<AppState>>) {
 	const initialState = initAppState()

@@ -29,7 +29,7 @@ slot {
 	overflow-y: auto;
 }
 
-nav {
+nav.toolbar {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;

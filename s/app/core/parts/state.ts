@@ -1,23 +1,34 @@
 
 import {Chronicle} from "@e280/strata"
 
+export const appStateVersion = 0
+
 export const initAppState = (): AppState => ({
 	sources: {glbs: []},
 	projects: [],
 })
 
 export type AppState = {
-	sources: {glbs: Glb[]}
+	sources: SourcesState
 	projects: ProjectState[]
 }
 
-export type ProjectState = {
-	id: string
-	chron: Chronicle<ProjectData>
+export type SourcesState = {
+	glbs: Glb[]
 }
 
-export type ProjectData = {
+export type ProjectState = {
+	live: ProjectLive
+	chronicle: Chronicle<ProjectChron>
+}
+
+export type ProjectChron = {
 	pods: Pod[]
+}
+
+export type ProjectLive = {
+	label: string
+	activeTab: number
 }
 
 export type Pod = {

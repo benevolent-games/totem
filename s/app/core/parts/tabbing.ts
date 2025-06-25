@@ -1,21 +1,21 @@
 
 import {Content, Signal, signal} from "@benev/slate"
 
-export type PanelSpec = {icon: Content, render: () => Content}
+export type Tab = {label: Content, render: () => Content}
 
-export class Tabber<Panels extends {[key: string]: PanelSpec}> {
-	activeLabel: Signal<keyof Panels>
+export class Tabber<Tabs extends {[key: string]: Tab}> {
+	activeKey: Signal<keyof Tabs>
 
-	constructor(start: keyof Panels, public panels: Panels) {
-		this.activeLabel = signal(start)
+	constructor(start: keyof Tabs, public tabs: Tabs) {
+		this.activeKey = signal(start)
 	}
 
-	get activePanel() {
-		return this.panels[this.activeLabel.value]
+	get active() {
+		return this.tabs[this.activeKey.value]
 	}
 
-	goto(label: keyof Panels) {
-		this.activeLabel.value = label
+	goto(label: keyof Tabs) {
+		this.activeKey.value = label
 	}
 }
 
