@@ -1,32 +1,41 @@
 
+# 🗿 totem
+
+— ***3d prop editor for web games***  
+— https://totem.benevolent.games/  
+
+<br/>
+
 > [!IMPORTANT]  
 > *totem is a work-in-progress right now.. it's super not ready..*  
 
----
+<br/>
 
-# 🗿 totem
+## [*totem*](https://totem.benevolent.games/) is an app
 
-— ***https://totem.benevolent.games/***  
-— *3d prop editor for web games*  
+#### use totem like this:
+- drag in `.glb` files
+- create `props` by arranging art assets
+- configure physics and attributes
+- export a single `.totem` file
 
-### *totem* is an app for authoring `.totem` files
+#### `.totem` file contains:
+- `.glb` files
+- a prop manifest
+- physical properties (mass, colliders, etc)
+- arbitrary game attributes like `{flammable: true}` or `{hp: 80}`
 
-a `.totem` file packs `.glb` files together with a *prop manifest*.
+<br/>
 
-a totem prop glues together glb art assets, physical characteristics, and other arbitrary attributes relevant to your games, eg *"this item is flammable"* or *"this item has 80 hitpoints"*, etc..
+## `@benev/totem` is a typescript library
+- npm package `@benev/totem`
+- isomorphic facilities for parsing/editing `.totem` files
+- babylonjs tooling via `@benev/totem/babylon`
 
-- you drag-and-drop in `.glb` files into totem as sources
-- you arrange art assets from the glbs into formal `props`
-- you configure each prop's `physics` and other properties
-- you can write arbitrary `attributes` for each prop
-- you export a packed `.totem` file
+<br/>
 
-### `@benev/totem` provides tooling for babylonjs
-- install the npm package `@benev/totem`
-- totem provides functionality for loading `.totem` files into babylon, and instancing props into your scene
-
-### about totem
-- `.totem` format is game-engine-agnostic
+## totem is open and free
+- totem is game-engine-agnostic
 - all your files stay locally on your computer
 - free and open source, by https://benevolent.games/
 
