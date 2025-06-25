@@ -1,11 +1,8 @@
 
 import {Kv} from "@e280/kv"
 import {Cellar} from "@e280/quay"
-import {Strata, Substrata} from "@e280/strata"
 
-import {makeStrata} from "./parts/strata.js"
-import {AppState, ProjectState, SourcesState} from "./parts/state.js"
-// import {getPodsPanel} from "../dom/panels/pods/view.js"
+import {makeSubstrate, Substrate} from "./parts/substrate.js"
 import {getTotemEditor} from "../dom/elements/totem-editor/element.js"
 
 export class Core {
@@ -14,22 +11,15 @@ export class Core {
 			cellar: Cellar,
 		) {
 		const store = kv.store("state")
-		const strata = await makeStrata(store)
+		const strata = await makeSubstrate(store)
 		return new this(kv, cellar, strata)
 	}
 
-	sources: Substrata<SourcesState>
-	projects: Substrata<ProjectState[]>
-
 	constructor(
-			public kv: Kv,
-			public cellar: Cellar,
-			public strata: Strata<AppState>,
-		) {
-
-		this.sources = strata.substrata(s => s.sources)
-		this.projects = strata.substrata(s => s.projects)
-	}
+		public kv: Kv,
+		public cellar: Cellar,
+		public substrate: Substrate,
+	) {}
 
 	// tabber = new Tabber("view", {
 	// 	view: {icon: "🗿", render: () => null},
