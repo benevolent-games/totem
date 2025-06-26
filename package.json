@@ -24,6 +24,7 @@
 		"_ln": "run-s _ln-s _ln-assets",
 		"_ln-s": "ln -s \"$(realpath s)\" x/s",
 		"_ln-assets": "ln -s \"$(realpath assets)\" x/assets",
+		"_dl-slate": "rm -rf node_modules/@benev/slate && ln -s \"$(realpath ../slate)\" node_modules/@benev/slate",
 		"_dl-marduk": "rm -rf node_modules/@benev/marduk && ln -s \"$(realpath ../marduk)\" node_modules/@benev/marduk",
 		"_dl-quay": "rm -rf node_modules/@e280/quay && ln -s \"$(realpath ../../@e280/quay)\" node_modules/@e280/quay",
 		"devlinks": "run-s _dl-marduk _dl-quay",
@@ -35,11 +36,11 @@
 	"dependencies": {
 		"@benev/marduk": "^0.0.0-4",
 		"@benev/math": "^0.0.0-2",
-		"@benev/slate": "^0.3.5",
+		"@benev/slate": "^0.3.6",
 		"@e280/kv": "^0.0.0-12",
 		"@e280/quay": "^0.0.0-2",
-		"@e280/strata": "^0.0.0-4",
-		"@e280/stz": "^0.0.0-24"
+		"@e280/strata": "^0.0.0-5",
+		"@e280/stz": "^0.0.0-27"
 	},
 	"devDependencies": {
 		"@benev/turtle": "^0.6.13",

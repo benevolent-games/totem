@@ -4,14 +4,12 @@ import {html, shadowComponent} from "@benev/slate"
 import styleCss from "./style.css.js"
 import themeCss from "../../theme.css.js"
 import {Core} from "../../../core/core.js"
-import {reactivity} from "../../utils/reactivity.js"
 import {makeProject} from "../../../core/parts/state.js"
 
 export const getTotemEditor = (core: Core) => shadowComponent(use => {
 	use.styles(themeCss, styleCss)
 
-	const {projects, project} = core.substrate
-	reactivity(use, [projects, project])
+	const {projects} = core.substrate
 
 	function clickAddProject() {
 		return async() => projects.mutate(p => p.push(makeProject()))
