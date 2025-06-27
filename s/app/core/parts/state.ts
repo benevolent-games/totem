@@ -7,7 +7,6 @@ export const appStateVersion = 0
 export const initAppState = (): AppState => ({
 	sources: {glbs: []},
 	projects: [],
-	activeProjectIndex: 0,
 })
 
 export function makeProject(): ProjectState {
@@ -25,7 +24,6 @@ export function makeProject(): ProjectState {
 export type AppState = {
 	sources: SourcesState
 	projects: ProjectState[]
-	activeProjectIndex: number
 }
 
 export type SourcesState = {

@@ -22,7 +22,6 @@ export async function makeSubstrate(store: Store<Versioned<AppState>>) {
 		strata,
 		sources: strata.substrata(s => s.sources),
 		projects: strata.substrata(s => s.projects),
-		project: strata.substrata(s => s.projects.at(s.activeProjectIndex)),
 	}
 }
 
