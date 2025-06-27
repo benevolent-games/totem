@@ -1,5 +1,5 @@
 
-# 🗿 totem
+# totem
 
 — ***3d prop editor for web games***  
 — https://totem.benevolent.games/  

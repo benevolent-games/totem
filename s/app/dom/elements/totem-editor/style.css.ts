@@ -6,7 +6,7 @@ marduk-theater {
 	display: contents;
 }
 
-.container {
+.overlay {
 	position: absolute;
 	inset: 0;
 
