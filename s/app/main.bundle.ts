@@ -4,7 +4,6 @@ import {register} from "@benev/slate"
 import {Kv, StorageDriver} from "@e280/kv"
 
 import {Core} from "./core/core.js"
-import {makeFrontstage} from "./rendering/frontstage.js"
 
 const core = await Core.setup(
 	new Kv(
@@ -15,12 +14,7 @@ const core = await Core.setup(
 	),
 )
 
-const frontstage = await makeFrontstage()
-
-register({
-	...frontstage.getElements(),
-	...core.elements,
-})
+register(core.elements)
 
 console.log("🗿")
 
