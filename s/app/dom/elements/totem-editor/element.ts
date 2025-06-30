@@ -18,7 +18,7 @@ export const getTotemEditor = (core: Core) => shadowComponent(use => {
 
 	const nav = use.signal<Nav>({kind: "about"})
 
-	const {projects} = core.substrate
+	const {projects} = core.appTree
 
 	const clickAboutTab = () => async() => {
 		nav.value = {kind: "about"}

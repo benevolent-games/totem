@@ -27,6 +27,7 @@
 		"_dl-slate": "rm -rf node_modules/@benev/slate && ln -s \"$(realpath ../slate)\" node_modules/@benev/slate",
 		"_dl-marduk": "rm -rf node_modules/@benev/marduk && ln -s \"$(realpath ../marduk)\" node_modules/@benev/marduk",
 		"_dl-quay": "rm -rf node_modules/@e280/quay && ln -s \"$(realpath ../../@e280/quay)\" node_modules/@e280/quay",
+		"_dl-strata": "rm -rf node_modules/@e280/strata && ln -s \"$(realpath ../../@e280/strata)\" node_modules/@e280/strata",
 		"devlinks": "run-s _dl-marduk _dl-quay",
 		"test": "node x/tests.test.js",
 		"test-watch": "node --watch x/tests.test.js",
@@ -36,11 +37,11 @@
 	"dependencies": {
 		"@benev/marduk": "^0.0.0-4",
 		"@benev/math": "^0.0.0-2",
-		"@benev/slate": "^0.3.6",
+		"@benev/slate": "^0.3.7",
 		"@e280/kv": "^0.0.0-12",
 		"@e280/quay": "^0.0.0-2",
-		"@e280/strata": "^0.0.0-5",
-		"@e280/stz": "^0.0.0-27"
+		"@e280/strata": "^0.0.0-6",
+		"@e280/stz": "^0.0.0-28"
 	},
 	"devDependencies": {
 		"@benev/turtle": "^0.6.13",

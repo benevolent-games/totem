@@ -2,7 +2,7 @@
 import {Kv} from "@e280/kv"
 import {Cellar} from "@e280/quay"
 
-import {makeSubstrate, Substrate} from "./parts/substrate.js"
+import {makeStateTree, StateTree} from "./parts/state-tree.js"
 import {getTotemEditor} from "../dom/elements/totem-editor/element.js"
 
 export class Core {
@@ -11,14 +11,14 @@ export class Core {
 			cellar: Cellar,
 		) {
 		const store = kv.store("state")
-		const strata = await makeSubstrate(store)
-		return new this(kv, cellar, strata)
+		const appTree = await makeStateTree(store)
+		return new this(kv, cellar, appTree)
 	}
 
 	constructor(
 		public kv: Kv,
 		public cellar: Cellar,
-		public substrate: Substrate,
+		public appTree: StateTree,
 	) {}
 
 	// tabber = new Tabber("view", {

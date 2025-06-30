@@ -1,6 +1,6 @@
 
 import {Bytes, Thumbprint} from "@e280/stz"
-import {Chronicle, Strata} from "@e280/strata"
+import {Chronicle, Trunk} from "@e280/strata"
 
 export const appStateVersion = 0
 
@@ -15,7 +15,7 @@ export function makeProject(): ProjectState {
 			activeTab: 0,
 			label: Thumbprint.sigil.fromBytes(Bytes.random(4)),
 		},
-		chronicle: Strata.chronicle<ProjectChron>({
+		chronicle: Trunk.chronicle<ProjectChron>({
 			pods: [],
 		}),
 	}

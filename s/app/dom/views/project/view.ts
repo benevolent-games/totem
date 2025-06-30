@@ -1,6 +1,5 @@
 
-import {loading} from "@benev/slate"
-import {html, shadowView} from "@benev/slate"
+import {html, shadowView, loading} from "@benev/slate"
 import {TheaterView} from "@benev/marduk/x/theater/index.dom.js"
 
 import styleCss from "./style.css.js"
