@@ -4,6 +4,7 @@ import {html, shadowComponent} from "@benev/slate"
 import styleCss from "./style.css.js"
 import themeCss from "../../theme.css.js"
 import {Core} from "../../../core/core.js"
+import {GlbsView} from "../../views/glbs/view.js"
 import {AboutView} from "../../views/about/view.js"
 import {ProjectView} from "../../views/project/view.js"
 import {makeProject} from "../../../core/parts/state.js"
@@ -88,11 +89,11 @@ export const getTotemEditor = (core: Core) => shadowComponent(use => {
 		</nav>
 	`
 
-	if (project)
-		return ProjectView([core, project], {content})
+	if (projectIndex !== undefined)
+		return ProjectView([core, projectIndex], {content})
 
 	else if (nav.value.kind === "glbs")
-		return AboutView([core], {content})
+		return GlbsView([core], {content})
 
 	else
 		return AboutView([core], {content})
