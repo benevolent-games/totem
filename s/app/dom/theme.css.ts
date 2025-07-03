@@ -31,6 +31,16 @@ a {
 	}
 }
 
+[slot="bg"] {
+	height: 100%;
+}
+
+[slot="overlay"] {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
 :is(
 	[theme~="naked"],
 	[theme~="button"]

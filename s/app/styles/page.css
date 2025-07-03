@@ -13,42 +13,33 @@
 		inset: 0;
 	}
 
-	header {
+	.about {
 		display: flex;
-		justify-content: space-between;
+		flex-direction: column;
 		align-items: center;
-		width: 100%;
-		padding: 0.2em 1em;
+		justify-content: center;
+		height: 100%;
 
-		> * {
-			flex: 0 1 auto;
+		> img {
+			height: 15em;
 		}
 
 		> h1 {
 			display: flex;
-			align-items: center;
+			align-items: baseline;
 			font-size: 4em;
 			font-weight: normal;
 			gap: 0.2em;
-
-			> img {
-				display: inline-block;
-				height: 1.5em;
-			}
-
-			> span {
-				display: flex;
-				align-items: baseline;
-				gap: 0.5rem;
-
-				small {
-					font-size: 1rem;
-					font-weight: normal;
-				}
-			}
 		}
 
-		> a {
+		> .details {
+			margin-top: 1em;
+			display: flex;
+			font-size: 1.5em;
+			gap: 0.5em;
+		}
+
+		> p {
 			font-size: 1.5em;
 		}
 	}

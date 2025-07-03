@@ -11,6 +11,10 @@ nav {
 		gap: 0.1em;
 	}
 
+	img {
+		height: 1em;
+	}
+
 	[x-project] {
 		padding-left: 0.1em;
 		padding-right: 0.1em;

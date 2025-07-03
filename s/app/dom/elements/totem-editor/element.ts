@@ -54,7 +54,7 @@ export const getTotemEditor = (core: Core) => shadowComponent(use => {
 				theme="glassy"
 				@click="${clickNavigate({kind: "about"})}"
 				?x-active="${nav.value.kind === "about"}">
-					ℹ️
+					<img alt="" src="/assets/totem.png"/>
 			</button>
 
 			<button

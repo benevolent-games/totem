@@ -41,16 +41,17 @@ export default template(async basic => {
 		`,
 		body: html`
 			<totem-editor>
-				<header>
-					<h1>
-						<img alt="" src="/assets/totem.png"/>
-						<span>
-							<span>Totem</span>
-							<small>${version}</small>
-						</span>
-					</h1>
-					<a href="https://github.com/benevolent-games/totem">github</a>
-				</header>
+				<div class=about>
+					<img alt="" src="/assets/totem.png"/>
+
+					<h1>Totem</h1>
+					<p>3d prop editor for web games</p>
+
+					<div class=details>
+						<span>${version}</span>
+						<a href="https://github.com/benevolent-games/totem">github</a>
+					</div>
+				</div>
 			</totem-editor>
 		`,
 	})
